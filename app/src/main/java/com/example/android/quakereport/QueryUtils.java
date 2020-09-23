@@ -7,7 +7,10 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.sql.Date;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.logging.SimpleFormatter;
 
 public final class QueryUtils {
     /** Sample JSON response for a USGS query */
@@ -59,8 +62,14 @@ public final class QueryUtils {
 
                String mag=jsonObjectprop.getString("mag");
                String place=jsonObjectprop.getString("place");
-               String time=jsonObjectprop.getString("time");
-               earthquake quake=new earthquake(mag,place,time);
+             //  String time=jsonObjectprop.getString("time");
+               long timedup=jsonObjectprop.getLong("time");
+               Date dateObj=new Date(timedup);
+                SimpleDateFormat dateFormat=new SimpleDateFormat("MMM DD, yyyy");
+                String datetoDisplay=dateFormat.format(dateObj);
+
+                String url =jsonObjectprop.getString("url");
+                earthquake quake=new earthquake(mag,place,datetoDisplay,url);
 
                earthquakes.add(quake);
 

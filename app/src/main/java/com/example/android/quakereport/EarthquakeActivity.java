@@ -16,8 +16,12 @@
 package com.example.android.quakereport;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
@@ -34,10 +38,19 @@ public class EarthquakeActivity extends AppCompatActivity {
         ArrayList<earthquake> earthquakes = QueryUtils.extractEarthquakes();
         @SuppressLint("WrongViewCast") ListView earthquakelistview=(ListView) findViewById(R.id.list);
 
-       earthquakeAdapter adapter=new earthquakeAdapter(this,earthquakes);
+       final earthquakeAdapter adapter=new earthquakeAdapter(this,earthquakes);
 
 
        earthquakelistview.setAdapter(adapter);
 
+       earthquakelistview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+           @Override
+           public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+               earthquake currentearthquake=adapter.getItem(position);
+               Uri earthquakeURI=Uri.parse(currentearthquake.getNurl());
+               Intent websiteIntent=new Intent(Intent.ACTION_VIEW,earthquakeURI);
+               startActivity(websiteIntent);
+           }
+       });
     }
 }

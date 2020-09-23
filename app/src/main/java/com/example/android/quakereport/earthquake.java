@@ -9,13 +9,15 @@ private  String nMagnitude;
 
     //date of the earthquake
     private  String nDate;
+    private  String nurl;
 
     // constructor
-    public earthquake(String Magnitude,String Location,String Date)
+    public earthquake(String Magnitude,String Location,String Date ,String url)
     {
     nMagnitude=Magnitude;
     nLocation=Location;
     nDate=Date;
+    nurl=url;
     }
 
     public String getnMagnitude() {
@@ -28,5 +30,9 @@ private  String nMagnitude;
 
     public String getnDate() {
         return nDate;
+    }
+
+    public String getNurl() {
+        return nurl;
     }
 }
